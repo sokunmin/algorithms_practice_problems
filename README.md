@@ -1,7 +1,7 @@
 # Algorithms Practice Problems
 
 ## Contents
-* Algorithms
+* **Algorithms**
   * Sorting
     * Insertion Sort (TODO)
     * Bubble Sort (TODO)
@@ -13,7 +13,7 @@
     * Radix Sort (TODO)
   * Dynamic Programming
     * Rod Cutting
-* Codility
+* **Codility**
   * Lesson 1 - Iterations
     * BinaryGap
   * Lesson 2 - Arrays
@@ -50,7 +50,7 @@
     * MaxDoubleSliceSum
     * MaxProfit (TODO)
     * MaxSliceSum (TODO)
-* Cracking the Coding InterView (CtCI 6th edition)
+* **Cracking the Coding InterView (CtCI 6th edition)**
   * (TODO)
 
 ## TODO list
@@ -58,3 +58,4 @@
 * Complete `Codility` demo problems.
 * Complete `Cracking the Coding Interview` questions.
 * Complete `Intro to Algorithms` problems.
+* Complete `Elements of Programming Interviews in Java`.
