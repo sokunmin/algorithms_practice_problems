@@ -19,16 +19,16 @@
   * Lesson 2 - Arrays
     * CyclicRotation
     * OddOccurrencesInArray
-  * Lesson 3 - Time Complexity
+  * Lesson 3 - Time complexity
     * FrogJmp
     * PermMissingElem
     * TapeEquilibrium
-  * Lesson 4 - Counting Elements
+  * Lesson 4 - Counting elements
     * FrogRiverOne
     * MaxCounters
     * MissingInteger
     * PermCheck
-  * Lesson 5 - Prefix Sums
+  * Lesson 5 - Prefix sums
     * CountDiv
     * PassingCars
     * GenomicRangeQuery (TODO)
@@ -38,7 +38,7 @@
     * MaxProductOfThree
     * Triangle
     * NumberOfDiscIntersections (TODO)
-  * Lesson 7 - Stacks and Queues
+  * Lesson 7 - Stacks and queues
     * Brackets
     * Fish
     * Nesting
@@ -46,10 +46,15 @@
   * Lesson 8 - Leader
     * Dominator
     * EquiLeader
-  * Lesson 9 - Maximum Slice Problem
+  * Lesson 9 - Maximum slice problem
     * MaxDoubleSliceSum
-    * MaxProfit (TODO)
-    * MaxSliceSum (TODO)
+    * MaxProfit
+    * MaxSliceSum
+  * Lesson 10 - Prime and composite numbers
+    * CountFactors (TODO)
+    * MinPerimeterRectangle (TODO)
+    * Flags (TODO)
+    * Peaks (TODO)
 * **Cracking the Coding InterView (CtCI 6th edition)**
   * (TODO)
 
@@ -59,3 +64,4 @@
 * Complete `Cracking the Coding Interview` questions.
 * Complete `Intro to Algorithms` problems.
 * Complete `Elements of Programming Interviews in Java`.
+* Practice `HackerRank` and `Leetcode`.

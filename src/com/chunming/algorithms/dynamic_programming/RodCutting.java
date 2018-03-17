@@ -17,9 +17,14 @@ public class RodCutting implements Callback {
         // the last entry from the table
         for (int i = 1; i <= n; i++) {
             int max_val = Integer.MIN_VALUE;
-            for (int j = 0; j < i; j++)
+            for (int j = 0; j < i; j++) {
+                System.out.format("i[%d], j[%d]\n", i, j);
+                System.out.format("price[j=%d]: %d + val[%d]: %d => %d\n", j, price[j],
+                        (i-j-1), val[(i-j-1)], price[j] + val[i - j - 1]);
                 max_val = Math.max(max_val, price[j] + val[i - j - 1]);
+            }
             val[i] = max_val;
+            System.out.println();
         }
 
         return val[n];

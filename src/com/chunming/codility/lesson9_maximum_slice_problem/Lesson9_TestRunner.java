@@ -8,8 +8,8 @@ public class Lesson9_TestRunner implements Callback {
 
     @Override
     public void test() {
-//        TestCase.test(new MaxDoubleSliceSum());
+        TestCase.test(new MaxDoubleSliceSum());
         TestCase.test(new MaxProfit());
-//        TestCase.test(new MaxSliceSum());
+        TestCase.test(new MaxSliceSum());
     }
 }

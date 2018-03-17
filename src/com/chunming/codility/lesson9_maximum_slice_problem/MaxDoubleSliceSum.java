@@ -1,5 +1,25 @@
 package com.chunming.codility.lesson9_maximum_slice_problem;
 
+/*
+  https://app.codility.com/programmers/lessons/9-maximum_slice_problem/max_double_slice_sum/
+
+  Assume that:
+
+  N is an integer within the range [3..100,000];
+  each element of array A is an integer within the range [−10,000..10,000].
+
+  Complexity:
+
+  expected worst-case time complexity is O(N);
+  expected worst-case space complexity is O(N).
+
+  +-------------------+
+  | Task Score:  100% |
+  | Correctness: 100% |
+  | Performance: 100% |
+  +-------------------+
+ */
+
 import com.chunming.Callback;
 
 public class MaxDoubleSliceSum implements Callback {
