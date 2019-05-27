@@ -73,6 +73,10 @@ Iteration example:
 
 class ThreeSum(BaseSolution):
 
+    """
+    https://leetcode.com/problems/3sum/
+    """
+
     def test_case(self):
         return [[-1, 0, 1, 2, -1, -4]]
         # return [[0, 0, 0]]
@@ -98,7 +102,7 @@ class ThreeSum(BaseSolution):
 
         # [3]
         start = time.time()
-        result = self._method3(nums)
+        # result = self._method3(nums)
         end = time.time()
         print('[3] Elapsed: {}'.format(end - start))
 
@@ -116,7 +120,8 @@ class ThreeSum(BaseSolution):
         return result
 
     def _method1(self, nums):
-        nums.sort()
+        # Time Limit Exceeded
+        nums = sorted(nums)
         size = len(nums)
         if len(nums) == 3 and sum(nums) == 0:
             return [nums]
@@ -141,14 +146,15 @@ class ThreeSum(BaseSolution):
                     s = nums[a] + nums[b] + nums[c]
                     print('[{}] {} + {} + {} = {}'.format(idx, nums[a], nums[b], nums[c], s))
                     idx += 1
-                    sol = [nums[a], nums[b], nums[c]]
                     if s == 0:
-                        result.add(tuple(sol))
+                        result.add((nums[a], nums[b], nums[c]))
                 print()
+            a += 1
 
         return list(map(list, result))
 
     def _method2(self, nums):
+        # Time Limit Exceeded
         nums.sort()
         print('nums: ', nums)
         size = len(nums)
@@ -187,7 +193,11 @@ class ThreeSum(BaseSolution):
         return result
 
     def _method3(self, nums):
-        # https://leetcode.com/problems/3sum/discuss/222521/Python-solution
+        """
+        https://leetcode.com/problems/3sum/discuss/222521/Python-solution
+        Runtime: 768 ms, faster than 84.84% of Python3 online submissions for 3Sum.
+        Memory Usage: 16.7 MB, less than 26.42% of Python3 online submissions for 3Sum.
+        """
         result = []
         n = len(nums)
         nums = sorted(nums)
@@ -214,76 +224,106 @@ class ThreeSum(BaseSolution):
         return result
 
     def _method4(self, nums):
+        """
+        Runtime: 744 ms, faster than 87.92% of Python3 online submissions for 3Sum.
+        Memory Usage: 18.1 MB, less than 6.83% of Python3 online submissions for 3Sum.
+          a   b
+        [-4, -1, -1, 0, 1, 2] => -(-4) - (-1) = 5
 
-        if len(nums) < 3:
-            return []
-        nums.sort()
-        res = set()
-        for i, v in enumerate(nums[:-2]):
-            if i >= 1 and v == nums[i - 1]:
+          a       b
+        [-4, -1, -1, 0, 1, 2] => -(-4) - (-1) = 5
+
+          a          b
+        [-4, -1, -1, 0, 1, 2] => -(-4) - (0) = 4
+
+          a             b
+        [-4, -1, -1, 0, 1, 2] => -(-4) - (1) = 3
+
+          a                b
+        [-4, -1, -1, 0, 1, 2] => -(-4) - (2) = 5
+
+              a   b
+        [-4, -1, -1, 0, 1, 2] => -(-1) - (-1) = 2
+
+              a      b
+        [-4, -1, -1, 0, 1, 2] => -(-1) - (0) = 1
+
+              a         b
+        [-4, -1, -1, 0, 1, 2] => -(-1) - (1) = 0, b = 1, [-1, 0, 1]
+        ...
+
+        """
+        nums = sorted(nums)
+        result = set()
+        for a, a_v in enumerate(nums[:-2]):
+            if a >= 1 and a_v == nums[a - 1]:
                 continue
             d = {}
-            for x in nums[i + 1:]:
-                if x not in d:
-                    d[-v - x] = 1
+            for b_v in nums[a + 1:]:
+                if b_v not in d:
+                    d[-a_v - b_v] = 1
                 else:
-                    res.add((v, -v - x, x))
-        return list(map(list, res))
+                    result.add((a_v, -a_v - b_v, b_v))
+        return list(map(list, result))
 
     def _method5(self, nums):
         # https://leetcode.com/problems/3sum/discuss/7482/Fastest-Python-solution-180-ms
-        instances = {}
+        occurrences = {}
         for n in nums:
-            if n in instances:
-                instances[n] += 1
+            if n in occurrences:
+                occurrences[n] += 1
             else:
-                instances[n] = 1
+                occurrences[n] = 1
         values = []
         result = []
-        for n, count in sorted(instances.items()):
+        for n, count in sorted(occurrences.items()):
             values.append(n)
             if n == 0 and count >= 3:
-                result.append([0,0,0])
+                result.append([0, 0, 0])
             elif n != 0 and count >= 2:
-                third = -2*n
-                if third in instances:
+                # checked all values x that occur twice to see if -2x also occurs.
+                # If not, they can't be used together so discard one of the x's.
+                third = -2 * n
+                if third in occurrences:
                     if n < third:
-                        result.append([n,n,third])
+                        result.append([n, n, third])
                     else:
-                        result.append([third,n,n])
-        #any sums involving duplicate values were handled above
-        nvalues = len(values)
-        while nvalues >= 3:
-            floor = -(values[nvalues-1] + values[nvalues-2])
+                        result.append([third, n, n])
+        # any sums involving duplicate values were handled above
+        size = len(values)
+        while size >= 3:
+            floor = -(values[size - 1] + values[size - 2])
             ceiling = -(values[0] + values[1])
             if floor > ceiling:
                 return []
-            iLeft = nvalues
-            iRight = -1
-            for i in range(nvalues):
+            print('floor = {}, ceiling = {}'.format(floor, ceiling))
+            left_idx = size
+            right_idx = -1
+            for i in range(size):
                 if values[i] >= floor:
-                    iLeft = i
+                    left_idx = i
                     break
-            for i in range(nvalues-1, -1, -1):
+            for i in range(size - 1, -1, -1):
                 if values[i] <= ceiling:
-                    iRight = i
+                    right_idx = i
                     break
-            if iLeft == 0 and iRight == nvalues - 1:
+            if left_idx == 0 and right_idx == size - 1:
                 break
-            values = values[iLeft:iRight+1]
-            nvalues = len(values)
-        if nvalues < 3:
+            values = values[left_idx:right_idx + 1]
+            print('values = ', values)
+            size = len(values)
+        if size < 3:
             return result
 
-        for i in range(nvalues-2):
+        for i in range(size - 2):
             v1 = values[i]
             if v1 >= 0:
                 break
-            for j in range(i+1,nvalues-1):
+            for j in range(i + 1, size - 1):
                 v2 = values[j]
                 v3 = -(v1 + v2)
                 if v3 <= v2:
                     break
-                if v3 in instances:
-                    result.append([v1,v2,v3])
+                if v3 in occurrences:
+                    result.append([v1, v2, v3])
         return result

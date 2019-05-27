@@ -5,6 +5,10 @@ from python.base import BaseSolution
 
 class TwoSum(BaseSolution):
 
+    """
+    https://leetcode.com/problems/two-sum/
+    """
+
     def test_case(self):
         return [2, 7, 11, 15], 9
 
