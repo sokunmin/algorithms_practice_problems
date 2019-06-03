@@ -12,11 +12,11 @@ class RotateArray(BaseSolution):
     """
 
     def test_case(self):
-        # return [1, 2, 3, 4, 5, 6, 7], 3
+        return [1, 2, 3, 4, 5, 6, 7], 3
         # return [1, 2, 3, 4, 5, 6, 7], 6
         # return [1, 7], 1
         # return [1, 3, 7], 2
-        return [1, 2, 3, 4, 5, 6], 2  # -> [5,6,1,2,3,4]
+        # return [1, 2, 3, 4, 5, 6], 2  # -> [5,6,1,2,3,4]
 
     def run(self, nums: List[int], k: int) -> None:
         """
@@ -105,7 +105,7 @@ class RotateArray(BaseSolution):
         Space complexity : O(1). No extra space is used.
         """
 
-        def reverse(nums: List[int], start, end):
+        def reverse(start, end):
             while start < end:
                 temp = nums[start]
                 nums[start] = nums[end]
@@ -113,7 +113,58 @@ class RotateArray(BaseSolution):
                 start += 1
                 end -= 1
 
+        k, n = k % len(nums), len(nums)
+        if k:
+            reverse(0, n - 1)
+            reverse(0, k - 1)
+            reverse(k, n - 1)
+        print('[4] nums: ', nums)
+
+    def _solution5(self, nums: List[int], k: int) -> None:
+        n = len(nums) - k
+        nums[:] = nums[n:] + nums[:n]
+        print('[5] nums: ', nums)
+
+    def _solution6(self, nums: List[int], k: int) -> None:
         k = k % len(nums)
-        reverse(nums, 0, len(nums) - 1)
-        reverse(nums, 0, k - 1)
-        reverse(nums, 0, len(nums) - 1)
+        if not k:
+            return
+        nums[:k], nums[k:] = nums[-k:], nums[:-k]
+        print('[6] nums: ', nums)
+
+    def _solution7(self, nums: List[int], k: int) -> None:
+        """
+        https://leetcode.com/problems/rotate-array/discuss/297859/Python-O(1)-time-and-space-with-explanation
+        :type nums: List[int]
+        :type k: int
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+
+        # adjust k so that is < len(nums) to avoid index out of bounds errors
+        if k >= len(nums):
+            k = k % len(nums)
+
+        # no rotation needs to be done
+        if k == 0:
+            return nums
+
+        # rotate
+        j = k
+        prev = nums[0]
+        num_shifts = 0
+        first_touched = 0
+        while num_shifts < len(nums):
+            t = nums[j]
+            nums[j] = prev
+            prev = t
+            # handle the case where we wrap around and hit an already-rotated index
+            # note that this will be the smallest already-rotated index if it occurs
+            if j == first_touched:
+                first_touched = first_touched + 1
+                prev = nums[first_touched]
+                j = first_touched + k
+            else:
+                j = (j + k) % len(nums)
+            num_shifts += 1
+
+        return nums
