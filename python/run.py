@@ -5,7 +5,7 @@ from python.leetcode.top_interview_questions_easy.array import *
 from python.leetcode.twosum import TwoSum
 
 # solutions = [TwoSum(), ThreeSum()]
-solutions = [SingleNumber()]
+solutions = [IntersectionOfTwoArrays2()]
 
 for s in solutions:
     print('-------------[{}]--------------'.format(s.__class__.__name__))
